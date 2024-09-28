@@ -1,3 +1,5 @@
+import Item from './Components/Item/Item.tsx';
+
 export interface IItem {
     item:{
         id:number;
@@ -16,4 +18,11 @@ export interface IList {
 export interface IOrderDetails {
     order: OrderItem[];
     removeItemFromOrder: (id: number) => void;
+}
+
+export interface IOrder {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
 }

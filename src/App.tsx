@@ -1,13 +1,14 @@
 import './App.css';
+import AddItems from './Components/AddItems/AddItems.tsx';
+import OrderDetails from './Components/OrderDetails/OrderDetails.tsx';
 import hamburgerImage from './assets/hamburger.png';
 import coffeeImage from './assets/coffee.png';
 import cheeseburgerImage from './assets/cheeseburger.png';
 import teaImage from './assets/tea.png';
 import friesImage from './assets/fries.png';
 import colaImage from './assets/cola.png';
-import AddItems from './Components/AddItems/AddItems.tsx';
-import OrderDetails from './Components/OrderDetails/OrderDetails.tsx';
 import {useState} from 'react';
+import {IOrder} from './types';
 
 const items = [
     { id: 1, name: 'Hamburger', price: 80, image: hamburgerImage },
@@ -19,7 +20,7 @@ const items = [
 ];
 
 const App = () => {
-    const [order, setOrder] = useState<{ id: number; name: string; price: number; quantity: number }[]>([]);
+    const [order, setOrder] = useState<IOrder[]>([]);
 
     const addToOrder = (item: { id: number; name: string; price: number }) => {
         setOrder(prevOrder => {
