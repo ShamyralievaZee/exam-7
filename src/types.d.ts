@@ -12,3 +12,8 @@ export interface IList {
     items: Item[];
     addToOrder: (item: Item) => void;
 }
+
+export interface IOrderDetails {
+    order: OrderItem[];
+    removeItemFromOrder: (id: number) => void;
+}

@@ -6,7 +6,7 @@ const Item: React.FC<IItem> = ({ item, addToOrder }) => {
         <div className="item" onClick={() => addToOrder(item)}>
             <img src={item.image} alt={item.name}/>
             <h4>{item.name}</h4>
-            <p>Price:{item.price} som</p>
+            <p>Price:{item.price}soms</p>
         </div>
     );
 };

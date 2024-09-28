@@ -5,6 +5,9 @@ import cheeseburgerImage from './assets/cheeseburger.png';
 import teaImage from './assets/tea.png';
 import friesImage from './assets/fries.png';
 import colaImage from './assets/cola.png';
+import AddItems from './Components/AddItems/AddItems.tsx';
+import OrderDetails from './Components/OrderDetails/OrderDetails.tsx';
+import {useState} from 'react';
 
 const items = [
     { id: 1, name: 'Hamburger', price: 80, image: hamburgerImage },
@@ -16,8 +19,41 @@ const items = [
 ];
 
 const App = () => {
+    const [order, setOrder] = useState<{ id: number; name: string; price: number; quantity: number }[]>([]);
+
+    const addToOrder = (item: { id: number; name: string; price: number }) => {
+        setOrder(prevOrder => {
+            const itemExist = prevOrder.find(orderItem => orderItem.id === item.id);
+            if (itemExist) {
+                return prevOrder.map(orderItem =>
+                    orderItem.id === item.id
+                        ? { ...orderItem, quantity: orderItem.quantity + 1 }
+                        : orderItem
+                );
+            } else {
+                return [...prevOrder, { ...item, quantity: 1 }];
+            }
+        });
+    };
+
+    const removeItemFromOrder = (id: number) => {
+        setOrder(prevOrder => {
+            const itemExist = prevOrder.find(orderItem => orderItem.id === id);
+            if (itemExist && itemExist.quantity > 1) {
+                return prevOrder.map(orderItem =>
+                    orderItem.id === id
+                        ? { ...orderItem, quantity: orderItem.quantity - 1 }
+                        : orderItem
+                );
+            } else {
+                return prevOrder.filter(orderItem => orderItem.id !== id);
+            }
+        });
+    };
     return (
-        <div className="app-container">
+        <div className="container">
+            <OrderDetails order={order} removeItemFromOrder={removeItemFromOrder} />
+            <AddItems items={items} addToOrder={addToOrder} />
         </div>
     );
 };
